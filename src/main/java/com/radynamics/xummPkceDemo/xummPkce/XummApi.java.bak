@@ -26,6 +26,7 @@ public class XummApi {
     }
 
     public XummApi(String accessToken) {
+        if (accessToken == null) throw new IllegalArgumentException("Parameter 'accessToken' cannot be null");
         this.accessToken = accessToken;
     }
 
