@@ -72,7 +72,12 @@ public class XummSigner implements StateListener<JSONObject> {
         if (storage.getAccessToken() == null) {
             auth = authenticate(transaction);
         } else {
-            auth.complete(null);
+            var payload = JwtPayload.create(storage.getAccessToken());
+            if (payload != null && payload.expired()) {
+                auth = authenticate(transaction);
+            } else {
+                auth.complete(null);
+            }
         }
 
         auth
